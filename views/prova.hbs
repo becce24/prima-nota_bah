@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="bg-gray-100">
-    <!-- Navbar -->
     <!-- Navbar Mobile-First -->
     <nav class="bg-blue-600 text-white">
         <!-- Mobile Burger Menu -->
@@ -48,7 +47,6 @@
     </nav>
 
     <!-- Contenuto Principale -->
-<!-- Contenuto Principale -->
     <div class="container mx-auto p-4">
         <!-- Form Transazione -->
         <div class="bg-white p-4 lg:p-6 rounded-lg shadow-md mb-6">
@@ -68,78 +66,47 @@
                         </label>
                     </div>
 
-        <!-- Contenitori per Cliente/Fornitore -->
-       <div class="col-span-full" id="entityContainer">
-            <div id="clientSection" class="hidden mb-4">
-                <input type="text" id="client" name="client" list="clientSuggestions" 
-                       class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                       placeholder="Cerca cliente...">
-                <datalist id="clientSuggestions"></datalist>
-            </div>
+                    <!-- Input Fields - si adattano automaticamente -->
+                    <div class="col-span-full" id="entityContainer">
+                        <div id="clientSection" class="hidden mb-4">
+                            <input type="text" id="client" name="client" list="clientSuggestions" 
+                                   class="w-full p-2 border rounded" placeholder="Cerca cliente...">
+                            <datalist id="clientSuggestions"></datalist>
+                        </div>
+                        <div id="supplierSection" class="hidden mb-4">
+                            <input type="text" id="supplier" name="supplier" list="supplierSuggestions" 
+                                   class="w-full p-2 border rounded" placeholder="Cerca fornitore...">
+                            <datalist id="supplierSuggestions"></datalist>
+                        </div>
+                    </div>
 
-            <div id="supplierSection" class="hidden">
-                <input type="text" id="supplier" name="supplier" list="supplierSuggestions" 
-                       class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                       placeholder="Cerca fornitore...">
-                <datalist id="supplierSuggestions"></datalist>
-            </div>
+                    <input type="date" name="date" required class="w-full p-2 border rounded">
+                    <input type="text" name="documentNumber" placeholder="Numero Documento" 
+                           required class="w-full p-2 border rounded">
+                    <input type="text" name="amount" placeholder="Importo (es. 1.000,50)" 
+                           required class="w-full p-2 border rounded">
+                    <select name="bank" required class="w-full p-2 border rounded bg-white">
+                        <option value="">Seleziona Banca</option>
+                        <option value="Banca Veneta (Patavina)">Banca Veneta (Patavina)</option>
+                        <option value="Bcc Centro Marca">Bcc Centro Marca</option>
+                        <option value="Bcc di Roma">Bcc di Roma</option>
+                        <option value="Bcc Colli">Bcc Colli</option>
+                        <option value="Cassa">Cassa</option>
+                    </select>
+
+                    <textarea name="description" placeholder="Descrizione" 
+                              class="w-full p-2 border rounded col-span-full"></textarea>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="w-full md:w-auto bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                        Salva
+                    </button>
+                </div>
+            </form>
         </div>
 
-        <!-- Altri campi nascosti di default -->
-        <div id="otherFields" class="hidden space-y-6">
-            <!-- Prima riga: Data e Numero Documento -->
-            <div class="grid grid-cols-2 gap-4">
-                <input type="date" id="date" name="date" required 
-                       class="w-full p-3 border border-gray-300 rounded-lg"
-                       value="{{currentDate}}">
-                
-                <input type="text" id="documentNumber" name="documentNumber" required 
-                       class="w-full p-3 border border-gray-300 rounded-lg"
-                       placeholder="Numero documento">
-            </div>
-
-            <!-- Seconda riga: Importo e Banca -->
-            <div class="grid grid-cols-2 gap-4">
-                <input type="text" id="amount" name="amount" required 
-                       class="w-full p-3 border border-gray-300 rounded-lg"
-                       placeholder="0,00">
-                
-                <select id="bank" name="bank" required 
-                        class="w-full p-2 border rounded bg-white">
-                    <option value="">Seleziona banca</option>
-                    <option value="Banca Veneta (Patavina)">Banca Veneta (Patavina)</option>
-                    <option value="Bcc Centro Marca">Bcc Centro Marca</option>
-                    <option value="Bcc di Roma">Bcc di Roma</option>
-                    <option value="Bcc Colli">Bcc Colli</option>
-                    <option value="Cassa">Cassa</option>
-                </select>
-            </div>
-
-            <!-- Descrizione -->
-            <textarea id="description" name="description" rows="2" 
-                    class="w-full p-2 border rounded col-span-full"
-                    placeholder="Descrizione"></textarea>
-        </div>
-
-        <!-- Campo hidden per il tipo -->
-        <input type="hidden" name="type" id="transactionType">
-
-        <!-- Pulsanti -->
-        <div class="flex gap-4">
-            <button type="submit" 
-                    class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center">
-                <i class="fas fa-save mr-2"></i>Salva
-            </button>
-            <button type="reset" 
-                    class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200 flex items-center justify-center">
-                <i class="fas fa-undo mr-2"></i>Annulla
-            </button>
-        </div>
-    </form>
-</div>
-
-<!-- Tabella Transazioni Semplificata -->
-  <!-- Lista Transazioni -->
+        <!-- Lista Transazioni -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="p-4 border-b border-gray-200">
                 <h3 class="text-xl font-semibold">Lista delle Transazioni</h3>
