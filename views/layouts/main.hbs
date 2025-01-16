@@ -1,0 +1,97 @@
+// views/layouts/main.hbs
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pageTitle}} - Gestione Prima Nota</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+    <!-- Solo una navbar -->
+    <nav class="bg-blue-600 text-white py-4 px-6 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex justify-between items-center">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold">Gestione Prima Nota</h1>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="/home" class="text-white px-4 py-2 hover:bg-blue-700 rounded transition-colors duration-300">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="/transactions" class="text-white px-4 py-2 hover:bg-blue-700 rounded transition-colors duration-300">
+                        <i class="fas fa-list mr-2"></i>Gestione
+                    </a>
+                    <a href="/settings" class="text-white px-4 py-2 hover:bg-blue-700 rounded transition-colors duration-300">
+                        <i class="fas fa-cog mr-2"></i>Impostazioni
+                    </a>
+                    <form action="/auth/logout" method="POST" class="inline">
+                        <button type="submit" class="text-white px-4 py-2 hover:bg-blue-700 rounded transition-colors duration-300">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex justify-between items-center">
+                <h1 class="text-xl font-bold">Gestione Prima Nota</h1>
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="/home" class="text-white px-4 py-2 hover:bg-blue-700 rounded">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="/transactions" class="text-white px-4 py-2 hover:bg-blue-700 rounded">
+                        <i class="fas fa-list mr-2"></i>Gestione
+                    </a>
+                    <a href="/settings" class="text-white px-4 py-2 hover:bg-blue-700 rounded">
+                        <i class="fas fa-cog mr-2"></i>Impostazioni
+                    </a>
+                    <form action="/auth/logout" method="POST">
+                        <button type="submit" class="text-white px-4 py-2 hover:bg-blue-700 rounded w-full text-left">
+                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-8">
+        {{{body}}}
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; {{currentYear}} Gestione Prima Nota. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
+            document.getElementById('mobile-menu')?.classList.toggle('hidden');
+        });
+    </script>
+    
+    {{#if scriptName}}
+        <script src="/js/{{scriptName}}.js"></script>
+    {{/if}}
+</body>
+</html>

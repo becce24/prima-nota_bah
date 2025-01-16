@@ -1,0 +1,62 @@
+
+// views/partials/navbar.hbs (Responsivo)
+<nav class="bg-blue-600 text-white py-4 px-6 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto">
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold">Gestione Prima Nota</h1>
+            </div>
+            <div class="flex space-x-4">
+                <a href="/home" class="nav-link">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="/transactions" class="nav-link">
+                    <i class="fas fa-list mr-2"></i>Gestione
+                </a>
+                <a href="/settings" class="nav-link">
+                    <i class="fas fa-cog mr-2"></i>Impostazioni
+                </a>
+                <form action="/auth/logout" method="POST" class="inline">
+                    <button type="submit" class="nav-link">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex justify-between items-center">
+            <h1 class="text-xl font-bold">Gestione Prima Nota</h1>
+            <button id="mobile-menu-button" class="focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4">
+            <div class="flex flex-col space-y-2">
+                <a href="/home" class="nav-link">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+                <a href="/transactions" class="nav-link">
+                    <i class="fas fa-list mr-2"></i>Gestione
+                </a>
+                <a href="/settings" class="nav-link">
+                    <i class="fas fa-cog mr-2"></i>Impostazioni
+                </a>
+                <form action="/auth/logout" method="POST">
+                    <button type="submit" class="nav-link w-full text-left">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+document.getElementById('mobile-menu-button').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+</script>
