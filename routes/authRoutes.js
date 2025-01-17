@@ -5,9 +5,15 @@ const authController = require('../controllers/authController');
 
 // Route per la pagina di login
 router.get('/login', (req, res) => {
+    // Se l'utente è già loggato, redirect alla home
+    if (req.session.userId) {
+        return res.redirect('/');
+    }
+    
     res.render('auth/login', {
         pageTitle: 'Login',
-        layout: 'layouts/auth'
+        layout: false, // Importante: non usare il layout principale
+        currentYear: new Date().getFullYear()
     });
 });
 

@@ -5,6 +5,7 @@ const transactionController = require('../controllers/transactionController');
 
 // Route principali
 router.get('/', transactionController.getAllTransactions);
+router.get('/new', transactionController.getTransactionForm);
 router.post('/add', transactionController.addTransaction);
 router.post('/delete/:id', transactionController.deleteTransaction);
 

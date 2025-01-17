@@ -1,0 +1,111 @@
+<div class="container mx-auto p-6">
+    {{#if error}}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <span class="block sm:inline">{{error}}</span>
+    </div>
+    {{/if}}
+
+    <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-6">Inserisci Nuova Transazione</h2>
+
+        <form action="/transactions/add" method="POST" class="space-y-6">
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            
+            <!-- Tipo Transazione -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center space-x-4">
+                    <input type="radio" id="typeClient" name="type" value="incasso" class="form-radio h-4 w-4 text-blue-600">
+                    <label for="typeClient" class="font-medium">Incasso</label>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <input type="radio" id="typeSupplier" name="type" value="pagamento" class="form-radio h-4 w-4 text-blue-600">
+                    <label for="typeSupplier" class="font-medium">Pagamento</label>
+                </div>
+            </div>
+
+            <!-- Data e Numero Documento -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
+                    <input type="date" id="date" name="date" required
+                           value="{{currentDate}}"
+                           class="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label for="documentNumber" class="block text-sm font-medium text-gray-700 mb-1">Numero Documento</label>
+                    <input type="text" id="documentNumber" name="documentNumber" required
+                           class="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Es. FAT/2025/001">
+                </div>
+            </div>
+
+            <!-- Cliente/Fornitore -->
+            <div id="entityContainer" class="hidden">
+                <div id="clientSection" class="hidden">
+                    <label for="client" class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+                    <input type="text" id="client" name="client" list="clientSuggestions"
+                           class="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Inizia a digitare il nome del cliente...">
+                    <datalist id="clientSuggestions"></datalist>
+                </div>
+
+                <div id="supplierSection" class="hidden">
+                    <label for="supplier" class="block text-sm font-medium text-gray-700 mb-1">Fornitore</label>
+                    <input type="text" id="supplier" name="supplier" list="supplierSuggestions"
+                           class="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Inizia a digitare il nome del fornitore...">
+                    <datalist id="supplierSuggestions"></datalist>
+                </div>
+            </div>
+
+            <!-- Importo e Banca -->
+            <div id="otherFields" class="hidden space-y-4">
+                <div>
+                    <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Importo</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">€</span>
+                        <input type="text" id="amount" name="amount" required
+                               class="w-full pl-8 rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="0,00">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="bank" class="block text-sm font-medium text-gray-700 mb-1">Banca/Cassa</label>
+                    <select id="bank" name="bank" required
+                            class="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Seleziona...</option>
+                        <option value="Cassa">Cassa</option>
+                        <option value="Banca Veneta (Patavina)">Banca Veneta (Patavina)</option>
+                        <option value="Bcc Centro Marca">Bcc Centro Marca</option>
+                        <option value="Bcc di Roma">Bcc di Roma</option>
+                        <option value="Bcc Colli">Bcc Colli</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Descrizione</label>
+                    <textarea id="description" name="description" rows="3"
+                            class="w-full rounded-md border border-gray-300 shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Inserisci una descrizione..."></textarea>
+                </div>
+            </div>
+
+            <!-- Pulsanti -->
+            <div class="flex justify-end space-x-3 pt-4">
+                <button type="button" onclick="window.location.href='/transactions'"
+                        class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                    Annulla
+                </button>
+                <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Salva
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{#unless scriptName}}
+<script src="/js/transaction.js"></script>
+{{/unless}}
