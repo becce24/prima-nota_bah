@@ -24,6 +24,23 @@ if (missingEnvVars.length > 0) {
 }
 
 const app = express();
+
+// Aggiungi questa riga PRIMA di tutti gli altri middleware
+app.set('trust proxy', 1);
+
+// Configurazione del rate limiter
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minuti
+    max: 5, // limite tentativi
+    message: 'Troppi tentativi di accesso. Riprova più tardi.',
+    standardHeaders: true,
+    legacyHeaders: false,
+    // Aggiungi questa configurazione per il proxy
+    trustProxy: true
+});
+
+// Resto del codice...
+
 const PORT = process.env.PORT || 3000;
 
 // View engine setup
@@ -65,12 +82,7 @@ app.use(session({
     name: 'sessionId',
 }));
 
-// Rate limiting
-const authLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minuti
-    max: 5, // limite tentativi
-    message: 'Troppi tentativi di accesso. Riprova più tardi.'
-});
+
 
 // CSRF Protection
 const csrfProtection = csrf({ cookie: true });
